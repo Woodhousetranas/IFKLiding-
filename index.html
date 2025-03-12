@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beställningsformulär - IFK Lidingö Bordtennis</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+    h1 { color: #333; }
+    form { background-color: #fff; padding: 20px; border-radius: 8px; max-width: 600px; margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    input, textarea, select { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+    input[type="submit"] { background-color: #007bff; color: #fff; border: none; cursor: pointer; }
+    input[type="submit"]:hover { background-color: #0056b3; }
+    .success-message { display: none; color: green; font-weight: bold; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Beställningsformulär - IFK Lidingö Bordtennis</h1>
+  <form action="https://formspree.io/f/xoveqpdr" method="POST">
+    <label for="namn">För- och efternamn:</label>
+    <input type="text" id="namn" name="namn" required>
+
+    <label for="adress">Leveransadress:</label>
+    <textarea id="adress" name="adress" rows="2" required></textarea>
+
+    <label for="mobilnummer">Mobilnummer:</label>
+    <input type="tel" id="mobilnummer" name="mobilnummer" required>
+
+    <label for="mejl">Mejladress:</label>
+    <input type="email" id="mejl" name="mejl" required>
+
+    <h2>Välj plagg, storlek och antal:</h2>
+
+    <label for="tshirt">T-shirt Drop Navy/Cyanblue #1:</label>
+    <select id="tshirt" name="tshirt">
+      <option value="">Välj storlek</option>
+      <option value="140">140</option>
+      <option value="152">152</option>
+      <option value="XXS">XXS</option>
+      <option value="XS">XS</option>
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+      <option value="XXL">XXL</option>
+      <option value="3XL">3XL</option>
+      <option value="4XL">4XL</option>
+    </select>
+    <label for="tshirt_namntryck">Namntryck på T-shirt #1:</label>
+    <input type="text" id="tshirt_namntryck" name="tshirt_namntryck">
+
+    <label for="tshirt2">T-shirt Drop Navy/Cyanblue #2:</label>
+    <select id="tshirt2" name="tshirt2">
+      <option value="">Välj storlek</option>
+      <option value="140">140</option>
+      <option value="152">152</option>
+      <option value="XXS">XXS</option>
+      <option value="XS">XS</option>
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+      <option value="XXL">XXL</option>
+      <option value="3XL">3XL</option>
+      <option value="4XL">4XL</option>
+    </select>
+    <label for="tshirt2_namntryck">Namntryck på T-shirt #2:</label>
+    <input type="text" id="tshirt2_namntryck" name="tshirt2_namntryck">
+
+    <label for="shorts">Shorts Beam Navy:</label>
+    <select id="shorts" name="shorts">
+      <option value="">Välj storlek</option>
+      <option value="140">140</option>
+      <option value="152">152</option>
+      <option value="XXS">XXS</option>
+      <option value="XS">XS</option>
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+      <option value="XXL">XXL</option>
+      <option value="3XL">3XL</option>
+      <option value="4XL">4XL</option>
+    </select>
+    <label for="shorts_qty">Antal:</label>
+    <input type="number" id="shorts_qty" name="shorts_qty" min="0">
+
+    <label for="overall">Overall Capri Navy #1:</label>
+    <select id="overall" name="overall">
+      <option value="">Välj storlek</option>
+      <option value="140">140</option>
+      <option value="152">152</option>
+      <option value="XXS">XXS</option>
+      <option value="XS">XS</option>
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+      <option value="XXL">XXL</option>
+      <option value="3XL">3XL</option>
+      <option value="4XL">4XL</option>
+    </select>
+    <label for="overall_namntryck">Namntryck på Overall #1:</label>
+    <input type="text" id="overall_namntryck" name="overall_namntryck">
+
+    <label for="overall2">Overall Capri Navy #2:</label>
+    <select id="overall2" name="overall2">
+      <option value="">Välj storlek</option>
+      <option value="140">140</option>
+      <option value="152">152</option>
+      <option value="XXS">XXS</option>
+      <option value="XS">XS</option>
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+      <option value="XXL">XXL</option>
+      <option value="3XL">3XL</option>
+      <option value="4XL">4XL</option>
+    </select>
+    <label for="overall2_namntryck">Namntryck på Overall #2:</label>
+    <input type="text" id="overall2_namntryck" name="overall2_namntryck">
+
+    <input type="submit" value="Skicka Beställning">
+  </form>
+
+  <div class="success-message" id="confirmationMessage">
+    Tack för din beställning! Vi har mottagit dina uppgifter och behandlar din order inom kort.
+  </div>
+</body>
+</html>
