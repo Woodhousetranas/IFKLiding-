@@ -1,131 +1,396 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Beställningsformulär - IFK Lidingö Bordtennis</title>
   <style>
-    body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
-    h1 { color: #333; }
-    form { background-color: #fff; padding: 20px; border-radius: 8px; max-width: 600px; margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    input, textarea, select { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
-    input[type="submit"] { background-color: #007bff; color: #fff; border: none; cursor: pointer; }
-    input[type="submit"]:hover { background-color: #0056b3; }
-    .success-message { display: none; color: green; font-weight: bold; margin-top: 20px; }
+    body {
+      font-family: Arial, sans-serif; 
+      background-color: #f4f4f4; 
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    form {
+      background-color: #fff; 
+      padding: 20px; 
+      border-radius: 8px; 
+      max-width: 700px; 
+      margin: 0 auto; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .product {
+      border: 1px solid #ccc; 
+      padding: 15px; 
+      margin-bottom: 20px; 
+      border-radius: 4px;
+    }
+    .product img {
+      max-width: 120px; 
+      display: block; 
+      margin-bottom: 10px;
+    }
+    label {
+      font-weight: bold; 
+      margin-top: 10px; 
+      display: block;
+    }
+    input, select, textarea {
+      width: 100%; 
+      padding: 10px; 
+      margin-bottom: 10px; 
+      border: 1px solid #ccc; 
+      border-radius: 4px;
+    }
+    input[type="number"] {
+      max-width: 100px;
+    }
+    .total-container {
+      background: #eef; 
+      padding: 15px; 
+      margin: 15px 0; 
+      border-radius: 4px; 
+      font-weight: bold;
+    }
+    input[type="submit"] {
+      background-color: #007bff; 
+      color: #fff; 
+      border: none; 
+      cursor: pointer; 
+      padding: 15px;
+    }
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
   <h1>Beställningsformulär - IFK Lidingö Bordtennis</h1>
-  <form action="https://formspree.io/f/xoveqpdr" method="POST">
+
+  <!-- 
+    Formspree-länk – ersätt med din faktiska formspree-länk: 
+    ex: https://formspree.io/f/xoveqpdr 
+  -->
+  <form action="https://formspree.io/f/xoveqpdr" method="POST" onsubmit="buildSummary()" >
+
+    <!-- Kunduppgifter -->
     <label for="namn">För- och efternamn:</label>
-    <input type="text" id="namn" name="namn" required>
+    <input type="text" id="namn" name="namn" required />
 
     <label for="adress">Leveransadress:</label>
     <textarea id="adress" name="adress" rows="2" required></textarea>
 
     <label for="mobilnummer">Mobilnummer:</label>
-    <input type="tel" id="mobilnummer" name="mobilnummer" required>
+    <input type="tel" id="mobilnummer" name="mobilnummer" required />
 
     <label for="mejl">Mejladress:</label>
-    <input type="email" id="mejl" name="mejl" required>
+    <input type="email" id="mejl" name="mejl" required />
 
-    <h2>Välj plagg, storlek och antal:</h2>
+    <hr/>
 
-    <label for="tshirt">T-shirt Drop Navy/Cyanblue #1:</label>
-    <select id="tshirt" name="tshirt">
-      <option value="">Välj storlek</option>
-      <option value="140">140</option>
-      <option value="152">152</option>
-      <option value="XXS">XXS</option>
-      <option value="XS">XS</option>
-      <option value="S">S</option>
-      <option value="M">M</option>
-      <option value="L">L</option>
-      <option value="XL">XL</option>
-      <option value="XXL">XXL</option>
-      <option value="3XL">3XL</option>
-      <option value="4XL">4XL</option>
-    </select>
-    <label for="tshirt_namntryck">Namntryck på T-shirt #1:</label>
-    <input type="text" id="tshirt_namntryck" name="tshirt_namntryck">
+    <!-- Produkt 1: T-shirt #1 -->
+    <div class="product">
+      <img src="https://via.placeholder.com/120x120?text=T-Shirt+1" alt="T-shirt 1"/>
+      <p><strong>Donic T-shirt Drop Navy/Cyanblue #1</strong><br/>
+      Artikelnummer: <span id="tshirt_artikel1">S82440231</span><br/>
+      Pris/st: <span id="tshirt_pris1">525</span> kr</p>
 
-    <label for="tshirt2">T-shirt Drop Navy/Cyanblue #2:</label>
-    <select id="tshirt2" name="tshirt2">
-      <option value="">Välj storlek</option>
-      <option value="140">140</option>
-      <option value="152">152</option>
-      <option value="XXS">XXS</option>
-      <option value="XS">XS</option>
-      <option value="S">S</option>
-      <option value="M">M</option>
-      <option value="L">L</option>
-      <option value="XL">XL</option>
-      <option value="XXL">XXL</option>
-      <option value="3XL">3XL</option>
-      <option value="4XL">4XL</option>
-    </select>
-    <label for="tshirt2_namntryck">Namntryck på T-shirt #2:</label>
-    <input type="text" id="tshirt2_namntryck" name="tshirt2_namntryck">
+      <label for="tshirt_size1">Välj storlek</label>
+      <select id="tshirt_size1">
+        <option value="">(Ingen)</option>
+        <option value="140">140</option>
+        <option value="152">152</option>
+        <option value="XXS">XXS</option>
+        <option value="XS">XS</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+        <option value="3XL">3XL</option>
+        <option value="4XL">4XL</option>
+      </select>
 
-    <label for="shorts">Shorts Beam Navy:</label>
-    <select id="shorts" name="shorts">
-      <option value="">Välj storlek</option>
-      <option value="140">140</option>
-      <option value="152">152</option>
-      <option value="XXS">XXS</option>
-      <option value="XS">XS</option>
-      <option value="S">S</option>
-      <option value="M">M</option>
-      <option value="L">L</option>
-      <option value="XL">XL</option>
-      <option value="XXL">XXL</option>
-      <option value="3XL">3XL</option>
-      <option value="4XL">4XL</option>
-    </select>
-    <label for="shorts_qty">Antal:</label>
-    <input type="number" id="shorts_qty" name="shorts_qty" min="0">
+      <label for="tshirt_qty1">Antal</label>
+      <input type="number" id="tshirt_qty1" min="0" value="0" />
 
-    <label for="overall">Overall Capri Navy #1:</label>
-    <select id="overall" name="overall">
-      <option value="">Välj storlek</option>
-      <option value="140">140</option>
-      <option value="152">152</option>
-      <option value="XXS">XXS</option>
-      <option value="XS">XS</option>
-      <option value="S">S</option>
-      <option value="M">M</option>
-      <option value="L">L</option>
-      <option value="XL">XL</option>
-      <option value="XXL">XXL</option>
-      <option value="3XL">3XL</option>
-      <option value="4XL">4XL</option>
-    </select>
-    <label for="overall_namntryck">Namntryck på Overall #1:</label>
-    <input type="text" id="overall_namntryck" name="overall_namntryck">
+      <label for="tshirt_namntryck1">Namntryck</label>
+      <input type="text" id="tshirt_namntryck1" placeholder="Ex: Falkehag" />
+    </div>
 
-    <label for="overall2">Overall Capri Navy #2:</label>
-    <select id="overall2" name="overall2">
-      <option value="">Välj storlek</option>
-      <option value="140">140</option>
-      <option value="152">152</option>
-      <option value="XXS">XXS</option>
-      <option value="XS">XS</option>
-      <option value="S">S</option>
-      <option value="M">M</option>
-      <option value="L">L</option>
-      <option value="XL">XL</option>
-      <option value="XXL">XXL</option>
-      <option value="3XL">3XL</option>
-      <option value="4XL">4XL</option>
-    </select>
-    <label for="overall2_namntryck">Namntryck på Overall #2:</label>
-    <input type="text" id="overall2_namntryck" name="overall2_namntryck">
+    <!-- Produkt 2: T-shirt #2 -->
+    <div class="product">
+      <img src="https://via.placeholder.com/120x120?text=T-Shirt+2" alt="T-shirt 2"/>
+      <p><strong>Donic T-shirt Drop Navy/Cyanblue #2</strong><br/>
+      Artikelnummer: <span id="tshirt_artikel2">S82440232</span><br/>
+      Pris/st: <span id="tshirt_pris2">525</span> kr</p>
 
-    <input type="submit" value="Skicka Beställning">
+      <label for="tshirt_size2">Välj storlek</label>
+      <select id="tshirt_size2">
+        <option value="">(Ingen)</option>
+        <option value="140">140</option>
+        <option value="152">152</option>
+        <option value="XXS">XXS</option>
+        <option value="XS">XS</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+        <option value="3XL">3XL</option>
+        <option value="4XL">4XL</option>
+      </select>
+
+      <label for="tshirt_qty2">Antal</label>
+      <input type="number" id="tshirt_qty2" min="0" value="0"/>
+
+      <label for="tshirt_namntryck2">Namntryck</label>
+      <input type="text" id="tshirt_namntryck2" placeholder="Ex: Falkehag" />
+    </div>
+
+    <!-- Produkt 3: Shorts -->
+    <div class="product">
+      <img src="https://via.placeholder.com/120x120?text=Shorts" alt="Shorts Beam Navy"/>
+      <p><strong>Shorts Beam Navy</strong><br/>
+      Artikelnummer: <span id="shorts_artnr">S82440250</span><br/>
+      Pris/st: <span id="shorts_pris">300</span> kr</p>
+
+      <label for="shorts_size">Välj storlek</label>
+      <select id="shorts_size">
+        <option value="">(Ingen)</option>
+        <option value="140">140</option>
+        <option value="152">152</option>
+        <option value="XXS">XXS</option>
+        <option value="XS">XS</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+        <option value="3XL">3XL</option>
+        <option value="4XL">4XL</option>
+      </select>
+
+      <label for="shorts_qty">Antal</label>
+      <input type="number" id="shorts_qty" min="0" value="0" />
+    </div>
+
+    <!-- Produkt 4: Overall #1 -->
+    <div class="product">
+      <img src="https://via.placeholder.com/120x120?text=Overall+1" alt="Overall Capri Navy 1"/>
+      <p><strong>Overall Capri Navy #1</strong><br/>
+      Artikelnummer: <span id="ovr_artnr1">S82440300</span><br/>
+      Pris/st: <span id="ovr_pris1">1100</span> kr</p>
+
+      <label for="ovr_size1">Välj storlek</label>
+      <select id="ovr_size1">
+        <option value="">(Ingen)</option>
+        <option value="140">140</option>
+        <option value="152">152</option>
+        <option value="XXS">XXS</option>
+        <option value="XS">XS</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+        <option value="3XL">3XL</option>
+        <option value="4XL">4XL</option>
+      </select>
+
+      <label for="ovr_qty1">Antal</label>
+      <input type="number" id="ovr_qty1" min="0" value="0" />
+
+      <label for="ovr_namntryck1">Namntryck</label>
+      <input type="text" id="ovr_namntryck1" placeholder="Ex: Falkehag" />
+    </div>
+
+    <!-- Produkt 5: Overall #2 -->
+    <div class="product">
+      <img src="https://via.placeholder.com/120x120?text=Overall+2" alt="Overall Capri Navy 2"/>
+      <p><strong>Overall Capri Navy #2</strong><br/>
+      Artikelnummer: <span id="ovr_artnr2">S82440301</span><br/>
+      Pris/st: <span id="ovr_pris2">1100</span> kr</p>
+
+      <label for="ovr_size2">Välj storlek</label>
+      <select id="ovr_size2">
+        <option value="">(Ingen)</option>
+        <option value="140">140</option>
+        <option value="152">152</option>
+        <option value="XXS">XXS</option>
+        <option value="XS">XS</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+        <option value="3XL">3XL</option>
+        <option value="4XL">4XL</option>
+      </select>
+
+      <label for="ovr_qty2">Antal</label>
+      <input type="number" id="ovr_qty2" min="0" value="0" />
+
+      <label for="ovr_namntryck2">Namntryck</label>
+      <input type="text" id="ovr_namntryck2" placeholder="Ex: Falkehag" />
+    </div>
+
+    <!-- Visuell total för kunden -->
+    <div class="total-container">
+      <div id="totalDisplay">Totalt: 0 kr</div>
+    </div>
+
+    <!-- Dold input som håller sammanfattning för Formspree -->
+    <input type="hidden" name="Beställning" id="order_summary" />
+
+    <input type="submit" value="Skicka Beställning" />
   </form>
 
-  <div class="success-message" id="confirmationMessage">
-    Tack för din beställning! Vi har mottagit dina uppgifter och behandlar din order inom kort.
-  </div>
+  <script>
+    // Priser (exempel) – hämta från HTML, men du kan också hårdkoda dem i JS om du vill
+    function getPrice(id) {
+      return parseFloat(document.getElementById(id).textContent.trim());
+    }
+
+    // Räkna ut total
+    function calculateTotal() {
+      let tshirtPrice1 = getPrice('tshirt_pris1');
+      let tshirtQty1   = parseInt(document.getElementById('tshirt_qty1').value) || 0;
+
+      let tshirtPrice2 = getPrice('tshirt_pris2');
+      let tshirtQty2   = parseInt(document.getElementById('tshirt_qty2').value) || 0;
+
+      let shortsPrice = getPrice('shorts_pris');
+      let shortsQty   = parseInt(document.getElementById('shorts_qty').value) || 0;
+
+      let ovrPrice1   = getPrice('ovr_pris1');
+      let ovrQty1     = parseInt(document.getElementById('ovr_qty1').value) || 0;
+
+      let ovrPrice2   = getPrice('ovr_pris2');
+      let ovrQty2     = parseInt(document.getElementById('ovr_qty2').value) || 0;
+
+      let total = (tshirtPrice1 * tshirtQty1) +
+                  (tshirtPrice2 * tshirtQty2) +
+                  (shortsPrice   * shortsQty) +
+                  (ovrPrice1     * ovrQty1) +
+                  (ovrPrice2     * ovrQty2);
+
+      // Visa för användaren
+      document.getElementById('totalDisplay').textContent = `Totalt: ${total} kr`;
+      return total;
+    }
+
+    // Bygg sammanfattning i textformat åt Formspree
+    function buildSummary() {
+      // Räkna total
+      let total = calculateTotal();
+
+      // Hämta alla fält
+      let kundNamn    = document.getElementById('namn').value;
+      let kundAdress  = document.getElementById('adress').value;
+      let kundMobil   = document.getElementById('mobilnummer').value;
+      let kundMejl    = document.getElementById('mejl').value;
+
+      // T-shirt #1
+      let tshirtSize1      = document.getElementById('tshirt_size1').value || '(Ingen)';
+      let tshirtQty1       = document.getElementById('tshirt_qty1').value || '0';
+      let tshirtNamntryck1 = document.getElementById('tshirt_namntryck1').value || '';
+      let tshirtArtNr1     = document.getElementById('tshirt_artikel1').textContent;
+      let tshirtPris1      = getPrice('tshirt_pris1');
+
+      // T-shirt #2
+      let tshirtSize2      = document.getElementById('tshirt_size2').value || '(Ingen)';
+      let tshirtQty2       = document.getElementById('tshirt_qty2').value || '0';
+      let tshirtNamntryck2 = document.getElementById('tshirt2_namntryck2')?.value || document.getElementById('tshirt2_namntryck').value || '';
+      let tshirtArtNr2     = document.getElementById('tshirt_artikel2').textContent;
+      let tshirtPris2      = getPrice('tshirt_pris2');
+
+      // Shorts
+      let shortsSize       = document.getElementById('shorts_size').value || '(Ingen)';
+      let shortsQty        = document.getElementById('shorts_qty').value || '0';
+      let shortsArtNr      = document.getElementById('shorts_artnr').textContent;
+      let shortsPris       = getPrice('shorts_pris');
+
+      // Overall #1
+      let ovrSize1         = document.getElementById('ovr_size1').value || '(Ingen)';
+      let ovrQty1          = document.getElementById('ovr_qty1').value || '0';
+      let ovrNamntryck1    = document.getElementById('ovr_namntryck1').value || '';
+      let ovrArtNr1        = document.getElementById('ovr_artnr1').textContent;
+      let ovrPris1         = getPrice('ovr_pris1');
+
+      // Overall #2
+      let ovrSize2         = document.getElementById('ovr_size2').value || '(Ingen)';
+      let ovrQty2          = document.getElementById('ovr_qty2').value || '0';
+      let ovrNamntryck2    = document.getElementById('ovr_namntryck2').value || '';
+      let ovrArtNr2        = document.getElementById('ovr_artnr2').textContent;
+      let ovrPris2         = getPrice('ovr_pris2');
+
+      // Bygg textbaserad sammanfattning
+      let textSummary = `
+**Kunduppgifter**
+Namn: ${kundNamn}
+Adress: ${kundAdress}
+Mobil: ${kundMobil}
+Mejl: ${kundMejl}
+
+**T-shirt #1** 
+Artikelnr: ${tshirtArtNr1}
+Storlek: ${tshirtSize1}
+Antal: ${tshirtQty1}
+Namntryck: ${tshirtNamntryck1}
+Pris/st: ${tshirtPris1} kr
+
+**T-shirt #2** 
+Artikelnr: ${tshirtArtNr2}
+Storlek: ${tshirtSize2}
+Antal: ${tshirtQty2}
+Namntryck: ${tshirtNamntryck2}
+Pris/st: ${tshirtPris2} kr
+
+**Shorts Beam**
+Artikelnr: ${shortsArtNr}
+Storlek: ${shortsSize}
+Antal: ${shortsQty}
+Pris/st: ${shortsPris} kr
+
+**Overall #1** 
+Artikelnr: ${ovrArtNr1}
+Storlek: ${ovrSize1}
+Antal: ${ovrQty1}
+Namntryck: ${ovrNamntryck1}
+Pris/st: ${ovrPris1} kr
+
+**Overall #2** 
+Artikelnr: ${ovrArtNr2}
+Storlek: ${ovrSize2}
+Antal: ${ovrQty2}
+Namntryck: ${ovrNamntryck2}
+Pris/st: ${ovrPris2} kr
+
+------------------
+**Totalt beräknat pris:** ${total} kr
+
+OBS! Frakt kan tillkomma.
+      `;
+
+      // Lägg i dold fält
+      document.getElementById('order_summary').value = textSummary;
+    }
+
+    // Uppdatera total automatiskt när användaren ändrar kvantitet
+    // (valfritt, men bra user experience)
+    const qtyFields = [
+      'tshirt_qty1','tshirt_qty2','shorts_qty',
+      'ovr_qty1','ovr_qty2'
+    ];
+    qtyFields.forEach(id => {
+      document.getElementById(id).addEventListener('input', calculateTotal);
+    });
+
+    // Se till att storleksfält också triggar om man vill
+    // men huvudsaken är att totalkostnaden bygger på kvantitet, inte storlek
+  </script>
 </body>
 </html>
