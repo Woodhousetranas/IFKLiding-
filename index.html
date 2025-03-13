@@ -5,36 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Beställningsformulär - IFK Lidingö Bordtennis</title>
   <style>
-    /* Grundläggande layout och styling */
-    body {
+    /* Grundläggande resets */
+    * {
+      box-sizing: border-box;
       margin: 0; 
-      padding: 0; 
+      padding: 0;
+    }
+
+    /* Body: marinblå bakgrund, vit text */
+    body {
       font-family: Arial, sans-serif; 
-      background-color: #001F3F; /* Marinblå bakgrund */
+      background-color: #001F3F; 
       color: #fff;
     }
+
+    /* Container: tre kolumner (left-col, center-col, right-col) */
     .container {
-      display: flex; 
+      display: flex;
+      /* Minska gapet för att få kolumnerna närmre */
+      gap: 10px;
       min-height: 100vh; 
-      align-items: flex-start; 
+      justify-content: center;
+      align-items: flex-start;
+      padding: 10px; /* lite luft runtom */
+    }
+
+    /* Vänster & höger spalter */
+    .left-col, .right-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      /* Sticky på större skärmar */
+      position: sticky;
+      top: 20px;
+      align-self: flex-start;
+    }
+
+    /* Mittenspalt */
+    .center-col {
+      flex: 3; 
+      display: flex;
+      align-items: center;
       justify-content: center;
     }
 
-    .left-col, .right-col {
-      flex: 1; 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-      justify-content: flex-start; 
-      gap: 30px; /* Avstånd mellan boxarna */
-      padding: 20px;
-    }
-    .center-col {
-      flex: 3; 
-      padding: 20px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center;
+    /* ---------- Responsiv anpassning ---------- */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column; 
+        align-items: center;
+      }
+      .left-col, .right-col {
+        position: static; /* Ej sticky på mobil */
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .center-col {
+        width: 100%;
+        margin-bottom: 20px;
+      }
     }
 
     /* Kupong-ruta (kod: lidingo15) */
@@ -75,7 +106,7 @@
       font-size: 1.1rem;
     }
 
-    /* Formulär (gratis Formspree) */
+    /* Form (gratis Formspree) */
     form {
       background-color: #fff;
       color: #333;
@@ -93,6 +124,7 @@
       display: block;
       font-weight: bold;
       margin-top: 10px;
+      color: #333;
     }
     input, select, textarea {
       width: 100%;
@@ -121,6 +153,7 @@
       margin-top: 0;
     }
 
+    /* Totalsummering */
     .total-container {
       background: #eef; 
       padding: 15px; 
@@ -136,6 +169,7 @@
       font-weight: normal;
       font-size: 0.9rem;
     }
+
     input[type="submit"], button {
       background-color: #007bff; 
       color: #fff; 
@@ -222,10 +256,11 @@
     </div>
   </div>
 
-  <!-- CENTERCOL: FORMULÄR -->
+  <!-- MITTKOLUMN (formulär) -->
   <div class="center-col">
+    <!-- Själva formuläret -->
+    <!-- ... (oförändrad from your version) ... -->
     <form action="https://formspree.io/f/xoveqpdr" method="POST" onsubmit="handleSubmit(event)">
-      <!-- Dolda input: Ämne + reply-to + beställningstext -->
       <input type="hidden" name="_subject" value="Ny beställning - IFK Lidingö Bordtennis" />
       <input type="hidden" name="_replyto" id="replyToField" value="" />
       <input type="hidden" name="Beställning" id="order_summary" />
@@ -411,6 +446,7 @@
         <input type="text" id="overall_namntryck2" placeholder="Ex: Andersson" />
       </div>
 
+      <!-- Totalsummering -->
       <div class="total-container">
         <div id="totalDisplay">Totalt: 0 kr</div>
         <small>Fraktkostnad tillkommer</small>
@@ -428,20 +464,17 @@
           Tack för ditt tålamod!
         </p>
       </div>
-
     </form>
   </div>
 
   <!-- HÖGER KOLUMN -->
   <div class="right-col">
-    <!-- Samma rabattkodsruta högst upp -->
     <div class="promo-coupon">
       <p>Era medlemmar har <strong>15% rabatt</strong><br/>
          på Yasakatabletennis.com<br/>
          med koden <strong>lidingo15</strong></p>
     </div>
 
-    <!-- Fyra kategori-boxar -->
     <div class="category-box">
       <a href="https://yasakatabletennis.com/product-category/blades" target="_blank">
         <img 
@@ -483,109 +516,110 @@
 </div>
 
 <script>
-function getPrice(id) {
-  return parseFloat(document.getElementById(id).textContent.trim());
-}
+  /* Samma JS-beräkning för +100 kr om namntryck, totalsumma, sticky, etc. */
+  /* Här klistrar du in den exakta JS-koden du redan har (calculateTotal, buildSummary, etc). */
 
-function nameTryckExtraCost(nameFieldId) {
-  const val = document.getElementById(nameFieldId).value.trim();
-  return (val !== '') ? 100 : 0;
-}
+  function getPrice(id) {
+    return parseFloat(document.getElementById(id).textContent.trim());
+  }
 
-function getSelectedArticle(selectId) {
-  const sel = document.getElementById(selectId);
-  const idx = sel.selectedIndex;
-  if (idx === -1) return '(Ingen)';
-  const opt = sel.options[idx];
-  return opt.getAttribute('data-article') || '(Ingen)';
-}
+  function nameTryckExtraCost(nameFieldId) {
+    const val = document.getElementById(nameFieldId).value.trim();
+    return (val !== '') ? 100 : 0;
+  }
 
-// Räkna total (2 T-shirts, 2 Shorts, 2 Overalls)
-function calculateTotal() {
-  let tshirtPrice1 = getPrice('tshirt_pris1');
-  let tshirtQty1   = parseInt(document.getElementById('tshirt_qty1').value) || 0;
-  let tshirtNamn1  = nameTryckExtraCost('tshirt_namntryck1');
+  function getSelectedArticle(selectId) {
+    const sel = document.getElementById(selectId);
+    const idx = sel.selectedIndex;
+    if (idx === -1) return '(Ingen)';
+    const opt = sel.options[idx];
+    return opt.getAttribute('data-article') || '(Ingen)';
+  }
 
-  let tshirtPrice2 = getPrice('tshirt_pris2');
-  let tshirtQty2   = parseInt(document.getElementById('tshirt_qty2').value) || 0;
-  let tshirtNamn2  = nameTryckExtraCost('tshirt_namntryck2');
+  function calculateTotal() {
+    let tshirtPrice1 = getPrice('tshirt_pris1');
+    let tshirtQty1   = parseInt(document.getElementById('tshirt_qty1').value) || 0;
+    let tshirtNamn1  = nameTryckExtraCost('tshirt_namntryck1');
 
-  let shortsPrice1 = getPrice('shorts_pris1');
-  let shortsQty1   = parseInt(document.getElementById('shorts_qty1').value) || 0;
+    let tshirtPrice2 = getPrice('tshirt_pris2');
+    let tshirtQty2   = parseInt(document.getElementById('tshirt_qty2').value) || 0;
+    let tshirtNamn2  = nameTryckExtraCost('tshirt_namntryck2');
 
-  let shortsPrice2 = getPrice('shorts_pris2');
-  let shortsQty2   = parseInt(document.getElementById('shorts_qty2').value) || 0;
+    let shortsPrice1 = getPrice('shorts_pris1');
+    let shortsQty1   = parseInt(document.getElementById('shorts_qty1').value) || 0;
 
-  let overallPrice1 = getPrice('overall_pris1');
-  let overallQty1   = parseInt(document.getElementById('overall_qty1').value) || 0;
-  let overallNamn1  = nameTryckExtraCost('overall_namntryck1');
+    let shortsPrice2 = getPrice('shorts_pris2');
+    let shortsQty2   = parseInt(document.getElementById('shorts_qty2').value) || 0;
 
-  let overallPrice2 = getPrice('overall_pris2');
-  let overallQty2   = parseInt(document.getElementById('overall_qty2').value) || 0;
-  let overallNamn2  = nameTryckExtraCost('overall_namntryck2');
+    let overallPrice1 = getPrice('overall_pris1');
+    let overallQty1   = parseInt(document.getElementById('overall_qty1').value) || 0;
+    let overallNamn1  = nameTryckExtraCost('overall_namntryck1');
 
-  // Summera
-  let total = 
-      (tshirtPrice1 * tshirtQty1 + tshirtNamn1 * tshirtQty1)
-    + (tshirtPrice2 * tshirtQty2 + tshirtNamn2 * tshirtQty2)
-    + (shortsPrice1 * shortsQty1)
-    + (shortsPrice2 * shortsQty2)
-    + (overallPrice1 * overallQty1 + overallNamn1 * overallQty1)
-    + (overallPrice2 * overallQty2 + overallNamn2 * overallQty2);
+    let overallPrice2 = getPrice('overall_pris2');
+    let overallQty2   = parseInt(document.getElementById('overall_qty2').value) || 0;
+    let overallNamn2  = nameTryckExtraCost('overall_namntryck2');
 
-  document.getElementById('totalDisplay').textContent = `Totalt: ${total} kr`;
-  return total;
-}
+    let total = 
+        (tshirtPrice1 * tshirtQty1 + tshirtNamn1 * tshirtQty1)
+      + (tshirtPrice2 * tshirtQty2 + tshirtNamn2 * tshirtQty2)
+      + (shortsPrice1 * shortsQty1)
+      + (shortsPrice2 * shortsQty2)
+      + (overallPrice1 * overallQty1 + overallNamn1 * overallQty1)
+      + (overallPrice2 * overallQty2 + overallNamn2 * overallQty2);
 
-function buildSummary() {
-  let total = calculateTotal();
+    document.getElementById('totalDisplay').textContent = `Totalt: ${total} kr`;
+    return total;
+  }
 
-  let kundNamn   = document.getElementById('namn').value;
-  let kundAdress = document.getElementById('adress').value;
-  let kundMobil  = document.getElementById('mobilnummer').value;
-  let kundMejl   = document.getElementById('mejl').value;
+  function buildSummary() {
+    let total = calculateTotal();
 
-  // T-shirt #1
-  let tshirtSize1 = document.getElementById('tshirt_size1').value || '(Ingen)';
-  let tshirtArt1  = getSelectedArticle('tshirt_size1');
-  let tshirtQty1  = document.getElementById('tshirt_qty1').value || '0';
-  let tshirtNtryck1 = document.getElementById('tshirt_namntryck1').value.trim();
-  let tshirtCost1 = getPrice('tshirt_pris1');
+    let kundNamn   = document.getElementById('namn').value;
+    let kundAdress = document.getElementById('adress').value;
+    let kundMobil  = document.getElementById('mobilnummer').value;
+    let kundMejl   = document.getElementById('mejl').value;
 
-  // T-shirt #2
-  let tshirtSize2 = document.getElementById('tshirt_size2').value || '(Ingen)';
-  let tshirtArt2  = getSelectedArticle('tshirt_size2');
-  let tshirtQty2  = document.getElementById('tshirt_qty2').value || '0';
-  let tshirtNtryck2 = document.getElementById('tshirt_namntryck2').value.trim();
-  let tshirtCost2 = getPrice('tshirt_pris2');
+    // T-shirt #1
+    let tshirtSize1 = document.getElementById('tshirt_size1').value || '(Ingen)';
+    let tshirtArt1  = getSelectedArticle('tshirt_size1');
+    let tshirtQty1  = document.getElementById('tshirt_qty1').value || '0';
+    let tshirtNtryck1 = document.getElementById('tshirt_namntryck1').value.trim();
+    let tshirtCost1 = getPrice('tshirt_pris1');
 
-  // Shorts #1
-  let shortsSize1 = document.getElementById('shorts_size1').value || '(Ingen)';
-  let shortsArt1  = getSelectedArticle('shorts_size1');
-  let shortsQty1  = document.getElementById('shorts_qty1').value || '0';
-  let shortsCost1 = getPrice('shorts_pris1');
+    // T-shirt #2
+    let tshirtSize2 = document.getElementById('tshirt_size2').value || '(Ingen)';
+    let tshirtArt2  = getSelectedArticle('tshirt_size2');
+    let tshirtQty2  = document.getElementById('tshirt_qty2').value || '0';
+    let tshirtNtryck2 = document.getElementById('tshirt_namntryck2').value.trim();
+    let tshirtCost2 = getPrice('tshirt_pris2');
 
-  // Shorts #2
-  let shortsSize2 = document.getElementById('shorts_size2').value || '(Ingen)';
-  let shortsArt2  = getSelectedArticle('shorts_size2');
-  let shortsQty2  = document.getElementById('shorts_qty2').value || '0';
-  let shortsCost2 = getPrice('shorts_pris2');
+    // Shorts #1
+    let shortsSize1 = document.getElementById('shorts_size1').value || '(Ingen)';
+    let shortsArt1  = getSelectedArticle('shorts_size1');
+    let shortsQty1  = document.getElementById('shorts_qty1').value || '0';
+    let shortsCost1 = getPrice('shorts_pris1');
 
-  // Overall #1
-  let overallSize1 = document.getElementById('overall_size1').value || '(Ingen)';
-  let overallArt1  = getSelectedArticle('overall_size1');
-  let overallQty1  = document.getElementById('overall_qty1').value || '0';
-  let overallNtryck1 = document.getElementById('overall_namntryck1').value.trim();
-  let overallCost1 = getPrice('overall_pris1');
+    // Shorts #2
+    let shortsSize2 = document.getElementById('shorts_size2').value || '(Ingen)';
+    let shortsArt2  = getSelectedArticle('shorts_size2');
+    let shortsQty2  = document.getElementById('shorts_qty2').value || '0';
+    let shortsCost2 = getPrice('shorts_pris2');
 
-  // Overall #2
-  let overallSize2 = document.getElementById('overall_size2').value || '(Ingen)';
-  let overallArt2  = getSelectedArticle('overall_size2');
-  let overallQty2  = document.getElementById('overall_qty2').value || '0';
-  let overallNtryck2 = document.getElementById('overall_namntryck2').value.trim();
-  let overallCost2 = getPrice('overall_pris2');
+    // Overall #1
+    let overallSize1 = document.getElementById('overall_size1').value || '(Ingen)';
+    let overallArt1  = getSelectedArticle('overall_size1');
+    let overallQty1  = document.getElementById('overall_qty1').value || '0';
+    let overallNtryck1 = document.getElementById('overall_namntryck1').value.trim();
+    let overallCost1 = getPrice('overall_pris1');
 
-  let textSummary = `
+    // Overall #2
+    let overallSize2 = document.getElementById('overall_size2').value || '(Ingen)';
+    let overallArt2  = getSelectedArticle('overall_size2');
+    let overallQty2  = document.getElementById('overall_qty2').value || '0';
+    let overallNtryck2 = document.getElementById('overall_namntryck2').value.trim();
+    let overallCost2 = getPrice('overall_pris2');
+
+    let textSummary = `
 **Kunduppgifter**
 Namn: ${kundNamn}
 Adress: ${kundAdress}
@@ -635,35 +669,34 @@ Pris/st: ${overallCost2} kr (+100 kr om namntryck)
 ------------------
 **Totalt beräknat pris:** ${total} kr
 + Fraktkostnad tillkommer
-  `;
+    `;
 
-  document.getElementById('order_summary').value = textSummary;
-  document.getElementById('replyToField').value = kundMejl;
-}
+    document.getElementById('order_summary').value = textSummary;
+    document.getElementById('replyToField').value = kundMejl;
+  }
 
-function showThankYou() {
-  const overlay = document.getElementById('thankYouOverlay');
-  overlay.style.display = 'flex';
-}
+  function showThankYou() {
+    const overlay = document.getElementById('thankYouOverlay');
+    overlay.style.display = 'flex';
+  }
 
-function handleSubmit(e) {
-  buildSummary();
-  showThankYou();
-}
+  function handleSubmit(e) {
+    buildSummary();
+    showThankYou();
+  }
 
-// Koppla in Overalls i beräkningen
-const fieldsToWatch = [
-  'tshirt_qty1','tshirt_qty2','tshirt_namntryck1','tshirt_namntryck2',
-  'shorts_qty1','shorts_qty2',
-  'overall_qty1','overall_qty2','overall_namntryck1','overall_namntryck2'
-];
-fieldsToWatch.forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener('input', calculateTotal);
-});
+  // Koppla events
+  const fieldsToWatch = [
+    'tshirt_qty1','tshirt_qty2','tshirt_namntryck1','tshirt_namntryck2',
+    'shorts_qty1','shorts_qty2',
+    'overall_qty1','overall_qty2','overall_namntryck1','overall_namntryck2'
+  ];
+  fieldsToWatch.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', calculateTotal);
+  });
 
-// Initiera total
-calculateTotal();
+  calculateTotal();
 </script>
 
 </body>
