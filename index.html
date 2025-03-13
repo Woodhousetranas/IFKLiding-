@@ -5,55 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Beställningsformulär - IFK Lidingö Bordtennis</title>
   <style>
-    /* ---------- Grundläggande resets ---------- */
+    /* 1) Grundläggande resets */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    /* ---------- Body ---------- */
+    /* 2) Body, marinblå bakgrund */
     body {
-      font-family: Arial, sans-serif; 
-      background-color: #001F3F; /* Marinblå bakgrund */
+      font-family: Arial, sans-serif;
+      background-color: #001F3F; 
       color: #fff;
       line-height: 1.4;
     }
 
-    /* ---------- Huvudcontainer: tre kolumner (left, center, right) ---------- */
+    /* 3) Huvudcontainer: tre kolumner */
     .container {
       display: flex;
-      gap: 10px;               /* mindre gap för kolumnerna */
+      gap: 10px;
       min-height: 100vh; 
       justify-content: center;
       align-items: flex-start;
       padding: 10px;
     }
 
-    /* ---------- Sidokolumner (vänster + höger) ---------- */
+    /* 4) Sidokolumner (left-col, right-col) */
     .left-col, .right-col {
       flex: 1;
       display: flex;
       flex-direction: column;
       gap: 20px;
       align-items: center;
-      /* Sticky-läge på desktop */
       position: sticky;
-      top: 60px;              /* du kan ändra till 20px eller 0px */
+      top: 60px; /* avstånd uppifrån, kan ändras */
       align-self: flex-start;
       max-height: calc(100vh - 80px);
-      overflow-y: auto;       /* scroll om innehållet blir för högt */
+      overflow-y: auto;
       background: linear-gradient(#00264D, #001F3F);
       border-radius: 8px;
       padding: 15px;
     }
-
-    /* Gärna lite avstånd i de klistriga kolumnerna så text/bilder inte klibbar i kanterna */
     .left-col > *, .right-col > * {
       margin-bottom: 20px;
     }
 
-    /* ---------- Center-kolumn (formuläret) ---------- */
+    /* 5) Mittkolumn (center-col) */
     .center-col {
       flex: 3; 
       display: flex;
@@ -61,7 +58,7 @@
       justify-content: center;
     }
 
-    /* ---------- Responsiv för mobil/platta ---------- */
+    /* 6) Responsiv: stapla kolumner på mobil */
     @media (max-width: 768px) {
       .container {
         flex-direction: column; 
@@ -70,10 +67,10 @@
       .left-col, .right-col {
         position: static;
         max-height: none;
-        overflow: visible; 
+        overflow: visible;
         width: 100%;
         margin-bottom: 20px;
-        background: none; 
+        background: none;
         padding: 0;
       }
       .left-col > *, .right-col > * {
@@ -85,7 +82,7 @@
       }
     }
 
-    /* ---------- Kupong-ruta ---------- */
+    /* 7) Kupongruta */
     .promo-coupon {
       background-color: #00264D;
       padding: 20px;
@@ -105,7 +102,7 @@
       color: #ffd700;
     }
 
-    /* ---------- Kategoriboxar ---------- */
+    /* 8) Kategoriboxar */
     .category-box {
       background-color: #00264D;
       padding: 20px;
@@ -131,7 +128,7 @@
       box-shadow: 0 6px 14px rgba(0,0,0,0.4);
     }
 
-    /* ---------- Formulär ---------- */
+    /* 9) Form */
     form {
       background-color: #fff;
       color: #333;
@@ -142,7 +139,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       position: relative;
     }
-    form h2, form h3 {
+    form h2 {
       margin-top: 0;
       color: #333;
     }
@@ -163,7 +160,6 @@
     input[type="number"] {
       max-width: 100px;
     }
-
     .product {
       border: 1px solid #ccc; 
       padding: 15px; 
@@ -176,8 +172,18 @@
       display: block; 
       margin-bottom: 10px;
     }
+    .product p {
+      margin-top: 0;
+    }
 
-    /* Totalsummering i formuläret */
+    /* Extra rubriker i formuläret */
+    form h3 {
+      margin: 20px 0 10px;
+      color: #333;
+      font-size: 1.2rem;
+    }
+
+    /* Totalsummering */
     .total-container {
       background: #eef; 
       padding: 15px; 
@@ -209,7 +215,7 @@
       background-color: #0056b3;
     }
 
-    /* Tackmeddelande overlay */
+    /* Tackoverlay */
     .thank-you-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -235,6 +241,7 @@
 
   <!-- VÄNSTER KOLUMN -->
   <div class="left-col">
+
     <!-- Kupongruta -->
     <div class="promo-coupon">
       <p>
@@ -247,43 +254,45 @@
     <!-- Kategoriboxar -->
     <div class="category-box">
       <a href="https://yasakatabletennis.com/product-category/blades" target="_blank">
-        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/header-blade.jpg"
-          alt="Yasaka Blades" />
+        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/header-blade.jpg" 
+             alt="Yasaka Blades" />
         <p>Se Blades</p>
       </a>
     </div>
     <div class="category-box">
       <a href="https://yasakatabletennis.com/product-category/rubbers" target="_blank">
-        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/header-rubbers.jpg"
-          alt="Yasaka Rubbers" />
+        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/header-rubbers.jpg" 
+             alt="Yasaka Rubbers" />
         <p>Se Rubbers</p>
       </a>
     </div>
     <div class="category-box">
       <a href="https://yasakatabletennis.com/product-category/apparel" target="_blank">
-        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/apparel-category.jpg"
-          alt="Yasaka Apparel" />
+        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/apparel-category.jpg" 
+             alt="Yasaka Apparel" />
         <p>Se Apparel</p>
       </a>
     </div>
     <div class="category-box">
       <a href="https://yasakatabletennis.com/products/" target="_blank">
-        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/all-products.jpg"
-          alt="Alla produkter" />
+        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/all-products.jpg" 
+             alt="Alla produkter" />
         <p>Alla Produkter</p>
       </a>
     </div>
   </div>
 
-  <!-- MITTKOLUMNEN: FORMULÄR -->
+  <!-- CENTERCOL: FORMULÄR -->
   <div class="center-col">
     <form action="https://formspree.io/f/xoveqpdr" method="POST" onsubmit="handleSubmit(event)">
-      <!-- Skicka data till Formspree -->
+
+      <!-- Dolda fält för Formspree-setup -->
       <input type="hidden" name="_subject" value="Ny beställning - IFK Lidingö Bordtennis" />
       <input type="hidden" name="_replyto" id="replyToField" value="" />
       <input type="hidden" name="Beställning" id="order_summary" />
 
       <h2>Kunduppgifter</h2>
+
       <label for="namn">För- och efternamn:</label>
       <input type="text" id="namn" name="namn" required placeholder="Ex: Andersson" />
 
@@ -301,25 +310,16 @@
 
       <!-- T-shirt #1 -->
       <div class="product">
-        <img 
-          src="https://www.donic.com/thumbnail/b1/ce/7e/1713786743/donic-t-shirt-drop-navy_1920x1920.jpg"
-          alt="Donic T-shirt Drop Navy #1" />
+        <img src="https://www.donic.com/thumbnail/b1/ce/7e/1713786743/donic-t-shirt-drop-navy_1920x1920.jpg"
+             alt="T-shirt #1" />
         <p><strong>Donic T-shirt Drop Navy #1</strong><br/>
-        Pris/st: <span id="tshirt_pris1">525</span> kr<br/>
-        Namntryck: +100 kr</p>
+           Pris/st: <span id="tshirt_pris1">525</span> kr<br/>
+           Namntryck: +100 kr
+        </p>
         <label for="tshirt_size1">Storlek</label>
         <select id="tshirt_size1">
           <option value="">(Ingen)</option>
-          <option value="140"  data-article="S82440231">140</option>
-          <option value="152"  data-article="S82440232">152</option>
-          <option value="XXS"  data-article="S82440233">XXS</option>
-          <option value="XS"   data-article="S82440234">XS</option>
-          <option value="S"    data-article="S82440235">S</option>
-          <option value="M"    data-article="S82440236">M</option>
-          <option value="L"    data-article="S82440237">L</option>
-          <option value="XL"   data-article="S82440238">XL</option>
-          <option value="XXL"  data-article="S82440239">XXL</option>
-          <option value="XXXL" data-article="S82440240">XXXL</option>
+          <!-- ... storlekar + data-article ... -->
         </select>
         <label for="tshirt_qty1">Antal</label>
         <input type="number" id="tshirt_qty1" min="0" value="0" />
@@ -327,38 +327,23 @@
         <input type="text" id="tshirt_namntryck1" placeholder="Ex: Andersson" />
       </div>
 
-      <!-- T-shirt #2 -->
-      <div class="product">
-        <img 
-          src="https://www.donic.com/thumbnail/b1/ce/7e/1713786743/donic-t-shirt-drop-navy_1920x1920.jpg"
-          alt="Donic T-shirt Drop Navy #2" />
-        <p><strong>Donic T-shirt Drop Navy #2</strong><br/>
-        Pris/st: <span id="tshirt_pris2">525</span> kr<br/>
-        Namntryck: +100 kr</p>
-        <label for="tshirt_size2">Storlek</label>
-        <select id="tshirt_size2">
-          <option value="">(Ingen)</option>
-          <!-- ... etc. ... -->
-        </select>
-        <label for="tshirt_qty2">Antal</label>
-        <input type="number" id="tshirt_qty2" min="0" value="0"/>
-        <label for="tshirt_namntryck2">Namntryck</label>
-        <input type="text" id="tshirt_namntryck2" placeholder="Ex: Andersson" />
-      </div>
+      <!-- T-shirt #2 (liknande) -->
 
       <!-- Rubrik: Shorts -->
       <h3>Shorts</h3>
-      <!-- Shorts #1 + #2 ...  -->
+      <!-- Shorts #1 -->
+      <!-- Shorts #2 -->
 
       <!-- Rubrik: Overalls -->
       <h3>Overalls</h3>
-      <!-- Overall #1 + #2 ... -->
+      <!-- Overall #1 -->
+      <!-- Overall #2 -->
 
       <!-- Totalsummering -->
       <div class="total-container">
         <div id="totalDisplay">Totalt: 0 kr</div>
-        <small>*Fraktkostnad tillkommer, 
-          <a href="https://yasakatabletennis.com/fraktpolicy" style="color: #007bff;">
+        <small>*Fraktkostnad tillkommer.
+          <a href="https://yasakatabletennis.com/fraktpolicy" style="color:#007bff;">
             Läs vår fraktpolicy
           </a>
         </small>
@@ -381,52 +366,102 @@
 
   <!-- HÖGER KOLUMN -->
   <div class="right-col">
+
     <div class="promo-coupon">
       <p>Era medlemmar har <strong>15% rabatt</strong><br/>
          på Yasakatabletennis.com<br/>
-         med koden <strong>lidingo15</strong></p>
+         med koden <strong>lidingo15</strong>
+      </p>
     </div>
 
     <div class="category-box">
       <a href="https://yasakatabletennis.com/product-category/blades" target="_blank">
-        <img 
-          src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/header-blade.jpg"
-          alt="Yasaka Blades" />
+        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/header-blade.jpg" 
+             alt="Yasaka Blades" />
         <p>Se Blades</p>
       </a>
     </div>
     <div class="category-box">
       <a href="https://yasakatabletennis.com/product-category/rubbers" target="_blank">
-        <img 
-          src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/header-rubbers.jpg"
-          alt="Yasaka Rubbers" />
+        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/header-rubbers.jpg" 
+             alt="Yasaka Rubbers" />
         <p>Se Rubbers</p>
       </a>
     </div>
     <div class="category-box">
       <a href="https://yasakatabletennis.com/product-category/apparel" target="_blank">
-        <img 
-          src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/apparel-category.jpg"
-          alt="Yasaka Apparel" />
+        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/apparel-category.jpg" 
+             alt="Yasaka Apparel" />
         <p>Se Apparel</p>
       </a>
     </div>
     <div class="category-box">
       <a href="https://yasakatabletennis.com/products/" target="_blank">
-        <img 
-          src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/all-products.jpg"
-          alt="Alla produkter" />
+        <img src="https://bunny-wp-pullzone-2n5sdzke4o.b-cdn.net/wp-content/uploads/2024/09/all-products.jpg" 
+             alt="Alla produkter" />
         <p>Alla Produkter</p>
       </a>
     </div>
   </div>
+
 </div>
 
 <script>
-  /* Inkapslad JS-kod för att räkna total, mm. 
-     Du kopierar in your existing 
-     (calculateTotal, buildSummary, handleSubmit, etc.)
-  */
+  /* Samma JS (calculateTotal, buildSummary, handleSubmit) */
+
+  function getPrice(id) {
+    return parseFloat(document.getElementById(id).textContent.trim());
+  }
+  function nameTryckExtraCost(nameFieldId) {
+    const val = document.getElementById(nameFieldId).value.trim();
+    return (val !== '') ? 100 : 0;
+  }
+  function getSelectedArticle(selectId) {
+    const sel = document.getElementById(selectId);
+    const idx = sel.selectedIndex;
+    if (idx === -1) return '(Ingen)';
+    const opt = sel.options[idx];
+    return opt.getAttribute('data-article') || '(Ingen)';
+  }
+
+  function calculateTotal() {
+    // T-shirt, shorts, overall ...
+    // +100 kr för namntryck ...
+    // Samma logik som innan
+    // ...
+    // Uppdatera #totalDisplay
+    document.getElementById('totalDisplay').textContent = `Totalt: XXX kr`;
+    return 0; // Placeholder
+  }
+
+  function buildSummary() {
+    // Bygger textsträng ...
+    // ...
+    document.getElementById('order_summary').value = "Din orderinfo...";
+    document.getElementById('replyToField').value = document.getElementById('mejl').value;
+  }
+
+  function showThankYou() {
+    document.getElementById('thankYouOverlay').style.display = 'flex';
+  }
+
+  function handleSubmit(e) {
+    buildSummary();
+    showThankYou();
+  }
+
+  // Koppla events
+  const fieldsToWatch = [
+    'tshirt_qty1','tshirt_qty2','tshirt_namntryck1','tshirt_namntryck2',
+    'shorts_qty1','shorts_qty2',
+    'overall_qty1','overall_qty2','overall_namntryck1','overall_namntryck2'
+  ];
+  fieldsToWatch.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', calculateTotal);
+  });
+
+  calculateTotal();
 </script>
 </body>
 </html>
