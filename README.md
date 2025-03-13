@@ -1,2 +1,0 @@
-# IFKLiding-
-Klädbeställning
